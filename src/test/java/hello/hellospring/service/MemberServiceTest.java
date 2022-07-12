@@ -16,7 +16,7 @@ class MemberServiceTest {
     // 클리어하기 위해서 리포지토리 가져옴
     MemoryMemberRepository memberRepository;
     // MemberService 클래스에서 사용한 리포지토리랑 다른 인스턴스임..
-    // ( 다른리포지토리를 이욯하고 있음 ) -> 변경
+    // ( 다른리포지토리를 이욯하고 있음 ) -> 변경 (beforeEach())
 
     @BeforeEach
     public void beforeEach(){
@@ -71,7 +71,6 @@ class MemberServiceTest {
         }*/
 
 
-        //then
     }
 
     @Test
