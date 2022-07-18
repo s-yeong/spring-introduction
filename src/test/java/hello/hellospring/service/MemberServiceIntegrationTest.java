@@ -1,36 +1,27 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
-import hello.hellospring.repository.MemoryMemberRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import hello.hellospring.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+@SpringBootTest
+@Transactional  // 데이터베이스는 기본적으로 트랜젝션이라는 개념이 있음
+// Test케이스에 달면 테스트를 시작할 때 트랜젝션을 먼저 실행하고 DB에 데이터를 다 넣은 다음 테스트 끝난 후 롤백 해줌
+// 테스트 하나하나 다 적용
+class MemberServiceIntegrationTest {
 
-class MemberServiceTest {
-
+    // 테스트케이스는 필드기반으로 autowired로 받는게 편함
+    @Autowired
     MemberService memberService;
-    // 클리어하기 위해서 리포지토리 가져옴
-    MemoryMemberRepository memberRepository;
-    // MemberService 클래스에서 사용한 리포지토리랑 다른 인스턴스임..
-    // ( 다른리포지토리를 이욯하고 있음 ) -> 변경 (beforeEach())
-
-    @BeforeEach
-    public void beforeEach(){
-        memberRepository = new MemoryMemberRepository();
-        memberService = new MemberService(memberRepository);
-        // 같은 memoryMeberRepository를 사용하게 된다!
-    }
-
-    @AfterEach
-    // 메소드가 끝날 때 마다 동작
-    public  void afterEach() {
-        memberRepository.clearstore();
-    }
+    @Autowired MemberRepository memberRepository;
 
     @Test
+//    @Commit
     void 회원가입() {
 
         //given

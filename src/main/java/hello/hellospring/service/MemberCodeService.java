@@ -2,10 +2,12 @@ package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public class MemberCodeService {
 
     // 회원 서비스를 만드려면 먼저 회원 리포지토리가 있어야함
