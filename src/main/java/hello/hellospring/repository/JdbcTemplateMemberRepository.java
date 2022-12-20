@@ -8,8 +8,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +17,16 @@ public class JdbcTemplateMemberRepository implements MemberRepository{
 
     private final JdbcTemplate jdbcTemplate;
 
+    // [DataSource] : 데이터베이스 커넥션을 획득할 때 사용하는 객체
+    // 스프링 부트는 데이터베이스 커넥션 정보를 바탕으로 DataSource를 생성하고 스프링 빈으로 만듬, 그래서 DI를 받을 수 있음
     @Autowired  // 생성자 하나면 Autowired 생략할 수 있음
     public JdbcTemplateMemberRepository(DataSource datasource){
         jdbcTemplate = new JdbcTemplate(datasource);
     }
+
     @Override
     public Member save(Member member) {
+        // 쿼리 쓸 필요X
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
         jdbcInsert.withTableName("member").usingGeneratedKeyColumns("id");
 
@@ -53,6 +55,7 @@ public class JdbcTemplateMemberRepository implements MemberRepository{
     }
 
     private RowMapper<Member> memberRowMapper(){
+        // RowMapper를 사용하면, 원하는 형태의 결과값을 반환
         return (rs, rowNum) -> {
             Member member = new Member();
             member.setId(rs.getLong("id"));

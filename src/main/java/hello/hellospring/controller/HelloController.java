@@ -21,6 +21,7 @@ public class HelloController {
         return "hello-template";
     }
 
+    // API 방식
     @GetMapping("hello-string")
     @ResponseBody
     // ResponeBody의 의미는 HTTP에서 Body에 이 데이터를 직접 넣어주겠다. (문자 내용 직접 반환)
@@ -29,13 +30,12 @@ public class HelloController {
         // "hello spring" 이 문자가 요청한 클리언트에게 그대로 데려감
     }
 
-    // API 방식
     @GetMapping("hello-api")
     @ResponseBody
     public Hello helloApi(@RequestParam("name") String name) {
         Hello hello = new Hello();
         hello.setName(name);
-        return hello;
+        return hello;   // 객체를 넘김 (객체 -> JSON 변환)
     }
 
     static class Hello {

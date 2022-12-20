@@ -9,6 +9,7 @@ public class JpaMemberRepository implements MemberRepository{
 
     private final EntityManager em; //jpa는 EntityManager로 모든게 동작(주입 받아야함)
 
+    // 스프링이 만들어준 em을 인젝션 (내부적으로 DataSource 가지고 있음)
     public JpaMemberRepository(EntityManager em) {
         this.em = em;
     }
@@ -26,6 +27,7 @@ public class JpaMemberRepository implements MemberRepository{
 
     @Override
     public Optional<Member> findByName(String name) {
+        // JPQL
         List<Member> result = em.createQuery("select m from Member m where m.name = :name", Member.class)
                 .setParameter("name", name)
                 .getResultList();
@@ -36,6 +38,7 @@ public class JpaMemberRepository implements MemberRepository{
 
     @Override
     public List<Member> findAll() {
+        // JPQL, 객체를 대상으로 쿼리를 날림, 객체 자체를 select
         List<Member> result = em.createQuery("select m from Member m", Member.class)
                 .getResultList();
         return result;

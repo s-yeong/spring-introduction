@@ -14,8 +14,8 @@ class MemberServiceTest {
     MemberService memberService;
     // 클리어하기 위해서 리포지토리 가져옴
     MemoryMemberRepository memberRepository;
-    // MemberService 클래스에서 사용한 리포지토리랑 다른 인스턴스임..
-    // ( 다른리포지토리를 이욯하고 있음 ) -> 변경 (beforeEach())
+    // MemberService 클래스에서 사용한 리포지토리랑 다른 인스턴스임
+    // (다른리포지토리를 이욯하고 있음) -> 변경 후 beforeEach()에 반영
 
     @BeforeEach
     public void beforeEach(){
@@ -26,7 +26,7 @@ class MemberServiceTest {
 
     @AfterEach
     // 메소드가 끝날 때 마다 동작
-    public  void afterEach() {
+    public void afterEach() {
         memberRepository.clearstore();
     }
 

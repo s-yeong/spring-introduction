@@ -1,12 +1,8 @@
 package hello.hellospring.domain;
 
-import javax.persistence.*;
+// JPA 이전 Member 도메인
+public class MemberBefore {
 
-@Entity // JPA가 관리하는 엔티티
-// JPA는 인터페이스, 구현은 여러 업체가함 ex)Hibernate
-public class Member {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 

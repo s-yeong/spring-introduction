@@ -2,6 +2,7 @@ package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
+import hello.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,13 +11,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional
-@Service    // Spring이 올라 올 때, Service네 하고 스프링 컨테이너에 MemberService를 등록해줌
+//@Service    // Spring이 올라 올 때, Service네 하고 스프링 컨테이너에 MemberService를 등록해줌
 public class MemberService {
 
     // 회원 서비스를 만드려면 먼저 회원 리포지토리가 있어야함
-     private final MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
-    // memberRepository를 직접 new로 생성하는게 아니라 외부에서 넣어주도록 바꿈!
+    /**
+     * memberRepository를 직접 new로 생성하는게 아니라 외부에서 넣어주도록 바꿈!
+     */
+
+    // BEFORE
+    // private final MemberRepository memberRepository = new MemoryMemberRepository();
+
+    // -> AFTER
     @Autowired
     public MemberService(MemberRepository memberRepository){
         this.memberRepository = memberRepository;
@@ -29,7 +37,6 @@ public class MemberService {
     public long join(Member member){
         // 같은 이름이 있는 중복 회원X
         validateDuplicateMember(member);
-
         memberRepository.save(member);
         return member.getId();
     }

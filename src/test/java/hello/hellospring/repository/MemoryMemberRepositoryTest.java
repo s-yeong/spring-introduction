@@ -20,7 +20,7 @@ class MemoryMemberRepositoryTest {
     // 테스트가 끝나고나면 데이터를 클리어 해줘야함
     @AfterEach
     // 메소드가 끝날 때 마다 동작
-    public  void afterEach() {
+    public void afterEach() {
         repository.clearstore();
     }
 

@@ -1,14 +1,11 @@
 package hello.hellospring.repository;
 
 import hello.hellospring.domain.Member;
-import org.springframework.stereotype.Repository;
-
 import java.util.*;
 
-@Repository
 public class MemoryMemberRepository implements MemberRepository{
 
-
+    // store에 Member 저장
     private static Map<Long, Member> store = new HashMap<>();
     private static long sequence = 0L;  // sequence는 키값을 생성해주는 애
 
@@ -28,7 +25,7 @@ public class MemoryMemberRepository implements MemberRepository{
     public Optional<Member> findByName(String name) {
         return store.values().stream()
                 .filter(member -> member.getName().equals(name))
-                .findAny();
+                .findAny(); // name에 해당하는 member 찾으면 반환
 
     }
 

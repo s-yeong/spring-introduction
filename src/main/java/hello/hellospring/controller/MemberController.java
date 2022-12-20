@@ -16,8 +16,8 @@ import java.util.List;
  *  2. 자바 코드로 직접 스프링 빈 등록하기
  *  => MemoryMemberCodeRepository, MemberCodeService, SpringConfig
  */
-@Controller // Spirng이 뜰 때 MemberController라는 객체를 생성해서 Spring이 들고 있음
-// -> Spring 컨테이너에서 Spring Bean이 관리된다.
+@Controller // Spirng이 뜰 때 MemberController라는 Bean을 생성해서 Spring이 들고 있음
+            // -> Spring 컨테이너에서 Spring Bean이 관리된다.
 public class MemberController {
 
     private final MemberService memberService;
@@ -25,8 +25,13 @@ public class MemberController {
     // -> 스프링 컨테이너에 등록
 
 
-    @Autowired // memberService를 스프링이 스프링 컨테이너에 있는 memberService를 가져다 연결시켜줌
+    // Before
+//    @Autowired // 스프링이 memberService를 스프링 컨테이너에 있는 memberService를 가져다 연결시켜줌
     // -> memberController - memberService 연관관계를 연결해줌
+
+    // -> After
+    // *** 현재는 SpringConfig에서 memberSevice랑 memberRepository를 Bean으로 등록함
+    // 강의에서는 상황에 따라 구현 클래스를 변경해야 하기 때문에 설정을 통해 스프링 빈으로 등록함
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
