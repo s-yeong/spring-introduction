@@ -1,5 +1,6 @@
 package hello.hellospring.config;
 
+import hello.hellospring.aop.TimeTraceAop;
 import hello.hellospring.repository.JpaMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.service.MemberService;
@@ -12,6 +13,13 @@ import javax.persistence.EntityManager;
 @Configuration
 public class SpringConfig {
 // 스프링이 뜰 때 Configuration읽고 이 것을 스프링 빈에 등록하라는 뜻이네 라고 암
+
+
+    // before - JDBC
+    // private final DataSource dataSource;
+    /*public SpringConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }*/
 
     // before - JPA
     /*private EntityManager em;
@@ -51,4 +59,10 @@ public class SpringConfig {
         // 4. return new JpaMemberRepository(em);
 //    }
 
+
+    // Aop는 특별하기 때문에 인지하기 위해 빈 등록
+    /*@Bean
+    public TimeTraceAop timeTraceAop() {
+        return new TimeTraceAop();
+    }*/
 }
